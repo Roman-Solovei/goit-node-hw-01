@@ -10,8 +10,7 @@ async function listContacts(){
       const data = await fs.readFile(contactsPath, "utf8");
       const allContacts = JSON.parse(data);
       console.table(allContacts);
-      return allContacts;   
-        
+      return allContacts;  
     }
     catch (error) {
         console.log(error);
@@ -23,10 +22,10 @@ async function getContactById(contactId) {
   try {
     const allContacts = await listContacts();
     const getContact = await allContacts.filter((contact) => {
-      return contact.id === contactId;
+    return contact.id === contactId;
     });
     console.table(getContact);
-}
+  }
   catch (error) {
     console.log(error);
   }
@@ -56,7 +55,7 @@ async function removeContact(contactId) {
   try {
     const allContacts = await listContacts();
     const delContacts = await allContacts.filter((contact) => {
-      return contact.id !== contactId;
+    return contact.id !== contactId;
     });
     await fs.writeFile(contactsPath, JSON.stringify(delContacts), "utf8");
     console.table(delContacts);
@@ -65,6 +64,5 @@ async function removeContact(contactId) {
     console.log(error);
   }
 };
-
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
