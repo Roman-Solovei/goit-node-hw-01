@@ -9,8 +9,11 @@ const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 async function listContacts(){
     try {
-        const contacts = await getDataContacts();
-        console.table(contacts);
+      const data = await fs.readFile(contactsPath, "utf8");
+      const contacts = JSON.parse(data);
+      console.table(contacts);
+      return contacts;   
+        
     }
     catch (error) {
         console.log(error);
@@ -18,20 +21,9 @@ async function listContacts(){
 };
 
 
-async function getDataContacts() {
-  try {
-    const data = await fs.readFile(contactsPath, "utf8");
-    return JSON.parse(data);
-  }
-  catch (error) {
-    console.log(error);
-  }
-};
-
-
 async function getContactById(contactId) {
   try {
-    const contacts = await getDataContacts();
+    const contacts = await listContacts();
     const neededContact = await contacts.filter((contact) => {
       return contact.id === contactId;
     });
@@ -51,7 +43,7 @@ async function addContact(name, email, phone) {
     phone: phone,
   };
   try {
-    const allContacts = await getDataContacts();
+    const allContacts = await listContacts();
     allContacts.push(newContact);  
     await fs.writeFile(contactsPath, JSON.stringify(allContacts), "utf8");
     console.table(allContacts)
@@ -64,7 +56,7 @@ async function addContact(name, email, phone) {
 
 async function removeContact(contactId) {
   try {
-    const contacts = await getDataContacts();
+    const contacts = await listContacts();
     const delContacts = await contacts.filter((contact) => {
       return contact.id !== contactId;
     });
