@@ -5,14 +5,12 @@ const uuid = require('uuid');
 const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 
-
-
 async function listContacts(){
     try {
       const data = await fs.readFile(contactsPath, "utf8");
-      const contacts = JSON.parse(data);
-      console.table(contacts);
-      return contacts;   
+      const allContacts = JSON.parse(data);
+      console.table(allContacts);
+      return allContacts;   
         
     }
     catch (error) {
@@ -23,11 +21,11 @@ async function listContacts(){
 
 async function getContactById(contactId) {
   try {
-    const contacts = await listContacts();
-    const neededContact = await contacts.filter((contact) => {
+    const allContacts = await listContacts();
+    const getContact = await allContacts.filter((contact) => {
       return contact.id === contactId;
     });
-    console.table(neededContact);
+    console.table(getContact);
 }
   catch (error) {
     console.log(error);
@@ -56,8 +54,8 @@ async function addContact(name, email, phone) {
 
 async function removeContact(contactId) {
   try {
-    const contacts = await listContacts();
-    const delContacts = await contacts.filter((contact) => {
+    const allContacts = await listContacts();
+    const delContacts = await allContacts.filter((contact) => {
       return contact.id !== contactId;
     });
     await fs.writeFile(contactsPath, JSON.stringify(delContacts), "utf8");
