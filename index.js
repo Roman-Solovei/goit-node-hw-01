@@ -43,26 +43,3 @@ function invokeAction({ action, id, name, email, phone }) {
 }
 
 invokeAction(argv);
-
-
-// invokeAction({action:'removeContact', id:'6'});
-
-// getContactById('5').then(value => console.log(value));
-// listContacts().then(value => console.log(value));
-
-
-
-
-
-
-
-// const path = require('path');
-// const contactsPath = path.join(__dirname, 'db', 'contacts.json');
-
-// console.log(contactsPath)
-
-//  addContact('asd', 'emai', '1232434')
-// .then(value => console.log(value))
-// listContacts()
-// getContactById('1').then(value => console.log(value))
-// removeContact('3')
